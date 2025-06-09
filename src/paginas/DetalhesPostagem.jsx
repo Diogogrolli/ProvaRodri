@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { Container, Typography, Paper, CircularProgress } from '@mui/material';
+import { useParams, useNavigate } from 'react-router-dom';
+import {
+  Container,
+  Typography,
+  Paper,
+  CircularProgress,
+  Button,
+  Stack,
+} from '@mui/material';
 
 const DetalhesPostagem = () => {
   const { id } = useParams();
+  const navigate = useNavigate();
   const [postagem, setPostagem] = useState(null);
   const [carregando, setCarregando] = useState(true);
 
@@ -26,10 +34,21 @@ const DetalhesPostagem = () => {
 
   return (
     <Container sx={{ mt: 4 }}>
+      <Stack spacing={2} mb={2}>
+        <Button variant="contained" onClick={() => navigate(-1)}>
+          Voltar
+        </Button>
+      </Stack>
       <Paper sx={{ padding: 3 }}>
-        <Typography variant="h4">{postagem.title}</Typography>
-        <Typography variant="body1" mt={2}>{postagem.body}</Typography>
-        <Typography variant="caption" display="block" mt={2}>ID do Post: {postagem.id}</Typography>
+        <Typography variant="h4" gutterBottom>
+          {postagem.title}
+        </Typography>
+        <Typography variant="body1" mb={2}>
+          {postagem.body}
+        </Typography>
+        <Typography variant="caption" display="block" gutterBottom>
+          ID do Post: {postagem.id}
+        </Typography>
         <Typography variant="caption">ID do Usuário: {postagem.userId}</Typography>
       </Paper>
     </Container>

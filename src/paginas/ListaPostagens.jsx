@@ -1,9 +1,19 @@
 import React, { useEffect, useState } from 'react';
-import { Container, Typography, List, ListItemButton, ListItemText, CircularProgress } from '@mui/material';
+import {
+  Container,
+  Typography,
+  Grid,
+  Card,
+  CardActionArea,
+  CardContent,
+  CircularProgress,
+} from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 const ListaPostagens = () => {
   const [posts, setPosts] = useState([]);
   const [carregando, setCarregando] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch('https://jsonplaceholder.typicode.com/posts')
@@ -24,17 +34,27 @@ const ListaPostagens = () => {
 
   return (
     <Container sx={{ mt: 4 }}>
-      <Typography variant="h4" gutterBottom>Lista de Postagens</Typography>
-      <List>
+      <Typography variant="h4" gutterBottom>
+        Lista de Postagens
+      </Typography>
+      <Grid container spacing={3}>
         {posts.map(post => (
-          <ListItemButton
-            key={post.id}
-            onClick={() => window.open(`/dados/${post.id}`, '_blank')}
-          >
-            <ListItemText primary={post.title} />
-          </ListItemButton>
+          <Grid item xs={12} sm={6} md={4} key={post.id}>
+            <Card>
+              <CardActionArea onClick={() => navigate(`/dados/${post.id}`)}>
+                <CardContent>
+                  <Typography variant="h6" gutterBottom>
+                    {post.title}
+                  </Typography>
+                  <Typography variant="body2" color="text.secondary" noWrap>
+                    {post.body}
+                  </Typography>
+                </CardContent>
+              </CardActionArea>
+            </Card>
+          </Grid>
         ))}
-      </List>
+      </Grid>
     </Container>
   );
 };
