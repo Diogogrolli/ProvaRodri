@@ -15,9 +15,9 @@ const ListaPostagens = () => {
   const [carregando, setCarregando] = useState(true);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetch('https://jsonplaceholder.typicode.com/posts')
-      .then(res => res.json())
+  useEffect(() => {  // começa vazio, só 
+    fetch('https://jsonplaceholder.typicode.com/posts') // É uma requesição HTTP do tipo GET
+      .then(res => res.json()) //converte a resposta para JSON e armazena
       .then(data => {
         setPosts(data);
         setCarregando(false);
